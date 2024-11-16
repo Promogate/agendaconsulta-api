@@ -1,6 +1,4 @@
-import express from "express";
-import logger from "./lib/logger";
+import ExpressAdapter from "./infra/http/express-adapter";
 
-const app = express();
-
-app.listen(8000, () => logger.info("Server running on port: 8000"));
+const app = new ExpressAdapter();
+app.listen(8000);
