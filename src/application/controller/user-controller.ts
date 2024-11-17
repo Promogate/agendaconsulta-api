@@ -10,7 +10,12 @@ export default class UserController {
     private readonly userService: IUserServices
   ) {
     this.router.on("get", this.namespace, "/getAll", [], async (request: Request, response: Response) => {
-      return await this.userService.getAllUsers();
+      try {
+        const users = await this.userService.getAllUsers();
+        return response.status(200).json(users)
+      } catch (error: any) {
+        response.status(400).json({})
+      }
     });
   }
 }
