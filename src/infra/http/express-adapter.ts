@@ -16,8 +16,8 @@ export default class ExpressAdapter implements HttpServer {
     this.app.use(httpErrorHandler);
   }
 
-  on(method: string, url: string, middlewares: Function[], callback: (request: Request, response: Response) => Promise<any>): void {
-    this.app._router[method](url, [...middlewares], async function (req: Request, res: Response) {
+  on(method: string, namespace: string, url: string, middlewares: Function[], callback: (request: Request, response: Response) => Promise<any>): void {
+    this.app._router[method](namespace + url, [...middlewares], async function (req: Request, res: Response) {
       try {
         const output = await callback(req, res);
         return output;
