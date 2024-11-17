@@ -8,4 +8,4 @@ export interface User {
   isPhoneWhatsapp: boolean;
   createdAt: Date;
   updatedAt: Date;
-}
+};
