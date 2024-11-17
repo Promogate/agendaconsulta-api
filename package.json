@@ -1,7 +1,7 @@
 {
   "name": "agenda-consulta-api",
   "scripts": {
-    "start:dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules ./src/server.ts"
+    "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules ./src/server.ts"
   },
   "devDependencies": {
     "@types/express": "^4",
