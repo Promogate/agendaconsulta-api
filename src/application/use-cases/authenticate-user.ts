@@ -4,7 +4,7 @@ import { AuthenticateUser } from "../../domain/features/auth/authenticate-user";
 import { AuthRepository } from "../../domain/repositories/auth-repository";
 import logger from "../../lib/logger";
 
-export class AuthenticateUserUseCase implements AuthenticateUser {
+export default class AuthenticateUserUseCase implements AuthenticateUser {
   constructor(private readonly authRepository: AuthRepository) { }
 
   async execute(input: AuthenticateUser.Input): Promise<AuthenticateUser.Output> {

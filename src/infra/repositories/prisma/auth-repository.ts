@@ -4,7 +4,7 @@ import { AuthRepository } from "../../../domain/repositories/auth-repository";
 import { PrismaClient } from "@prisma/client";
 import { User } from "../../../domain/entities/user";
 
-export class PrismaAuthRepository implements AuthRepository {
+export default class PrismaAuthRepository implements AuthRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
   async findUserByEmail(email: string): Promise<User | null> {

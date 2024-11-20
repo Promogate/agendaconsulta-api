@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { DoctorRepository } from "../../../domain/repositories/doctor-repository";
 import { Doctor } from "../../../domain/entities/doctor";
 
-export class PrismaDoctorRepository implements DoctorRepository {
+export default class PrismaDoctorRepository implements DoctorRepository {
   constructor(readonly prisma: PrismaClient) {
     this.prisma = prisma;
   }
