@@ -4,9 +4,7 @@ import { UserRepository } from "../../../domain/repositories/user-repository";
 import { User } from "../../../domain/entities/user";
 
 export class PrismaUserRepository implements UserRepository {
-  private prisma: PrismaClient;
-
-  constructor(prisma: PrismaClient) {
+  constructor(readonly prisma: PrismaClient) {
     this.prisma = prisma;
   }
 
