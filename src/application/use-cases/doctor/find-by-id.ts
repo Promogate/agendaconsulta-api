@@ -1,10 +1,16 @@
-import { Doctor } from "../../../domain/entities/doctor";
+import { FindById } from "../../../domain/features/doctor/find-by-id";
 import { DoctorRepository } from "../../../domain/repositories/doctor-repository";
+import logger from "../../../lib/logger";
 
-export default class FindDoctorByIdUseCase {
+export default class FindDoctorByIdUseCase implements FindById {
   constructor(private doctorRepository: DoctorRepository) {}
 
-  async execute(id: string): Promise<Omit<Doctor, "password_hash"> | null> {
-    return this.doctorRepository.findById(id);
+  async execute(input: FindById.Input): Promise<FindById.Output> {
+    try {
+      return this.doctorRepository.findById(input.id);
+    } catch (error: any) {
+      logger.error({ name: error.name }, error.message);
+      throw new Error(error.message);
+    }
   }
 }
