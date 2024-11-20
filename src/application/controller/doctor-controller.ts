@@ -4,6 +4,7 @@ import { CreateDoctor } from "../../domain/features/doctor/create";
 import { FindAllDoctors } from "../../domain/features/doctor/find-all";
 import { FindById } from "../../domain/features/doctor/find-by-id";
 import { UpdateDoctor } from "../../domain/features/doctor/update";
+import { DeleteDoctor } from "../../domain/features/doctor/delete";
 
 export default class DoctorController {
   private namespace = "/doctors";
@@ -13,7 +14,8 @@ export default class DoctorController {
     readonly createDoctor: CreateDoctor,
     readonly findAll: FindAllDoctors,
     readonly findById: FindById,
-    readonly updateDoctor: UpdateDoctor
+    readonly updateDoctor: UpdateDoctor,
+    readonly deleteDoctor: DeleteDoctor
   ) {
     this.router.on("post", this.namespace, "/create", [], async (request: Request, response: Response) => {
       try {
@@ -46,6 +48,15 @@ export default class DoctorController {
         const input = request.body;
         const result = await updateDoctor.execute(id, request.body);
         response.status(200).json({ doctors: result });
+      } catch (error: any) {
+        response.status(400).json({ message: error.message });
+      }
+    });
+    this.router.on("delete", this.namespace, "/:id", [], async (request: Request, response: Response) => {
+      try {
+        const id = request.params.id;
+        await deleteDoctor.execute(id);
+        response.status(200).send();
       } catch (error: any) {
         response.status(400).json({ message: error.message });
       }
