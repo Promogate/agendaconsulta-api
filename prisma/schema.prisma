@@ -29,7 +29,7 @@ model Doctor {
   password_hash    String
   crm              String?
   phone            String?
-  is_phon_whatsapp Boolean  @default(false)
+  is_phone_whatsapp Boolean  @default(false)
   specialties      String[]
 
   @@map("doctors")
