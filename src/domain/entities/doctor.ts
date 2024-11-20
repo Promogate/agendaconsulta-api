@@ -6,6 +6,6 @@ export interface Doctor {
   password_hash: string;
   crm?: string;
   phone?: string;
-  is_phon_whatsapp: boolean;
+  is_phone_whatsapp: boolean;
   specialties: string[];
 }
