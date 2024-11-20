@@ -1,12 +1,17 @@
-import { Doctor } from "../../../domain/entities/doctor";
+import { UpdateDoctor } from "../../../domain/features/doctor/update";
 import { DoctorRepository } from "../../../domain/repositories/doctor-repository";
+import logger from "../../../lib/logger";
 
-interface UpdateDoctorDTO extends Partial<Omit<Doctor, "id">> {}
 
-export default class UpdateDoctorUseCase {
-  constructor(private doctorRepository: DoctorRepository) {}
+export default class UpdateDoctorUseCase implements UpdateDoctor {
+  constructor(private doctorRepository: DoctorRepository) { }
 
-  async execute(id: string, input: UpdateDoctorDTO): Promise<Omit<Doctor, "password_hash"> | null> {
-    return this.doctorRepository.update(id, input);
+  async execute(id: string, input: UpdateDoctor.Input): Promise<UpdateDoctor.Output> {
+    try {
+      return this.doctorRepository.update(id, input);
+    } catch (error: any) {
+      logger.error({ name: error.name }, error.message);
+      throw new Error(error.message);
+    }
   }
 }
