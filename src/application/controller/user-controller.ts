@@ -17,5 +17,42 @@ export default class UserController {
         response.status(400).json({})
       }
     });
+    this.router.on("post", this.namespace, "/create", [], async (request: Request, response: Response) => {
+      try {
+        const input = request.body;
+        const users = await this.userService.createUser(input);
+        return response.status(200).json(users)
+      } catch (error: any) {
+        response.status(400).json({})
+      }
+    });
+    this.router.on("get", this.namespace, "/findById/:id", [], async (request: Request, response: Response) => {
+      try {
+        const input = request.params as { id: string; };
+        const users = await this.userService.getUserById(input.id);
+        return response.status(200).json(users)
+      } catch (error: any) {
+        response.status(400).json({})
+      }
+    });
+    this.router.on("put", this.namespace, "/:id", [], async (request: Request, response: Response) => {
+      try {
+        const params = request.params as { id: string; };
+        const input = request.body;
+        const users = await this.userService.updateUser(params.id, input);
+        return response.status(200).json(users)
+      } catch (error: any) {
+        response.status(400).json({})
+      }
+    });
+    this.router.on("delete", this.namespace, "/:id", [], async (request: Request, response: Response) => {
+      try {
+        const params = request.params as { id: string; };
+        const users = await this.userService.deleteUser(params.id);
+        return response.status(200).json(users)
+      } catch (error: any) {
+        response.status(400).json({})
+      }
+    });
   }
 }
