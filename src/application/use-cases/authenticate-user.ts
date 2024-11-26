@@ -1,5 +1,3 @@
-// src/application/usecases/AuthenticateUserUseCase.ts
-
 import { AuthenticateUser } from "../../domain/features/auth/authenticate-user";
 import { AuthRepository } from "../../domain/repositories/auth-repository";
 import logger from "../../lib/logger";

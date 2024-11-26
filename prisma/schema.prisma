@@ -15,40 +15,55 @@ model User {
   address           String?
   phone             String?
   is_phone_whatsapp Boolean  @default(false)
-  created_at         DateTime @default(now())
-  updated_at         DateTime @default(now())
+  created_at        DateTime @default(now())
+  updated_at        DateTime @default(now())
 
   @@map("users")
 }
 
 model Doctor {
-  id               String   @id @default(cuid())
-  first_name       String
-  last_name        String
-  email            String   @unique
-  password_hash    String
-  crm              String?
-  phone            String?
-  is_phone_whatsapp Boolean  @default(false)
-  specialties      String[]
+  id                String                   @id @default(cuid())
+  first_name        String
+  last_name         String
+  email             String                   @unique
+  password_hash     String
+  crm               String?
+  phone             String?
+  is_phone_whatsapp Boolean                  @default(false)
+  specializations   SpecializationOnDoctor[]
 
   @@map("doctors")
 }
 
 model Specialization {
-  id                  String @id @default(cuid())
+  id                  String                   @id @default(cuid())
   specialization_name String
+  clinics             SpecializationOnClinic[]
+  doctors             SpecializationOnDoctor[]
 
   @@map("specializations")
 }
 
 model SpecializationOnDoctor {
-  id                String @id @default(cuid())
+  id                String         @id @default(cuid())
   doctor_id         String
   specialization_id String
+  doctor            Doctor         @relation(fields: [doctor_id], references: [id])
+  specialization    Specialization @relation(fields: [specialization_id], references: [id])
 
   @@unique([doctor_id, specialization_id])
   @@map("specialization_on_doctors")
+}
+
+model SpecializationOnClinic {
+  id                String         @id @default(cuid())
+  clinic_id         String
+  specialization_id String
+  clinic            Clinic         @relation(fields: [clinic_id], references: [id])
+  specialization    Specialization @relation(fields: [specialization_id], references: [id])
+
+  @@unique([clinic_id, specialization_id])
+  @@map("specialization_on_clinics")
 }
 
 model DoctorHospitalAffiliation {
@@ -56,21 +71,22 @@ model DoctorHospitalAffiliation {
   doctor_id   String
   clinic_name String
   city        String
-  created_at         DateTime @default(now())
-  updated_at         DateTime @default(now())
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
 
   @@map("doctor_hospital_affiliation")
 }
 
 model Clinic {
-  id                String   @id @default(cuid())
+  id                String                   @id @default(cuid())
   name              String
-  email             String   @unique
+  email             String                   @unique
   phone             String
   address           String
-  is_phone_whatsapp Boolean  @default(false)
-  created_at         DateTime @default(now())
-  updated_at         DateTime @default(now())
+  is_phone_whatsapp Boolean                  @default(false)
+  created_at        DateTime                 @default(now())
+  updated_at        DateTime                 @default(now())
+  specializations   SpecializationOnClinic[]
 
   @@map("clinics")
 }
@@ -110,8 +126,8 @@ model ClientReview {
   is_review_anonymous  Boolean  @default(false)
   is_doctor_recommende Boolean  @default(true)
   rating               Int
-  created_at         DateTime @default(now())
-  updated_at         DateTime @default(now())
+  created_at           DateTime @default(now())
+  updated_at           DateTime @default(now())
 
   @@map("user_reviews")
 }

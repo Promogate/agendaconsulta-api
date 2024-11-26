@@ -7,3 +7,10 @@ export interface ClinicRepository {
   update(id: string, clinic: Partial<Omit<Clinic, "id" | "created_at" | "updated_at">>): Promise<Clinic>;
   delete(id: string): Promise<void>;
 }
+
+export interface FindClinicsByAddressAndSpecialization {
+  findClinicsByAddressAndSpecialization(
+    address: string,
+    specialization: string
+  ): Promise<Clinic[]>;
+};
