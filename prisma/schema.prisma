@@ -7,6 +7,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Administrator {
+  id            String             @id @default(cuid())
+  name          String
+  email         String             @unique
+  password_hash String
+  admin_level   AdministratorLevel @default(EMPLOYEE)
+  created_at    DateTime           @default(now())
+  updated_at    DateTime           @default(now())
+
+  @@map("administrators")
+}
+
+enum AdministratorLevel {
+  ADMIN
+  MANAGER
+  EMPLOYEE
+}
+
 model User {
   id                String   @id @default(cuid())
   name              String
