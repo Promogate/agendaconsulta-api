@@ -57,7 +57,7 @@ export interface CreateAdministratorDTO {
   name: string;
   email: string;
   password_hash: string;
-  admin_level: string;
+  admin_level?: string;
 }
 
 export interface UpdateAdministratorDTO {
