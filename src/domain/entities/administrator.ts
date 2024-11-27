@@ -3,7 +3,7 @@ export interface Administrator {
   name: string;
   email: string;
   password_hash: string;
-  admin_level: keyof typeof AdministratorLevel;
+  admin_level?: keyof typeof AdministratorLevel;
   created_at: Date;
   updated_at: Date;
 }
