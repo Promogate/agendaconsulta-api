@@ -39,7 +39,7 @@ export namespace UpdateAdministrator {
     admin_level: string;
     created_at: Date;
     updated_at: Date;
-  } | null;
+  }
 }
 
 export namespace FindByEmailAdministrator {
