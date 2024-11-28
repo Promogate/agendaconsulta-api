@@ -1,4 +1,4 @@
-import { Administrator, } from "../entities/administrator";
+import { Administrator, AdministratorLevel, } from "../entities/administrator";
 
 export interface AdministratorRepository {
   create(input: CreateAdministratorDTO): Promise<CreateAdministrator.Output>;
@@ -57,7 +57,7 @@ export interface CreateAdministratorDTO {
   name: string;
   email: string;
   password_hash: string;
-  admin_level?: string;
+  admin_level?: keyof typeof AdministratorLevel;
 }
 
 export interface UpdateAdministratorDTO {
