@@ -40,22 +40,23 @@ model User {
 }
 
 model Doctor {
-  id                String                   @id @default(cuid())
-  first_name        String
-  last_name         String
-  email             String                   @unique
-  password_hash     String
-  crm               String?
-  phone             String?
-  is_phone_whatsapp Boolean                  @default(false)
-  specializations   SpecializationOnDoctor[]
+  id                     String                     @id @default(cuid())
+  first_name             String
+  last_name              String
+  email                  String                     @unique
+  password_hash          String
+  crm                    String?
+  phone                  String?
+  is_phone_whatsapp      Boolean                    @default(false)
+  specializations        SpecializationOnDoctor[]
+  clinics_availabilities ClinicDoctorAvailability[]
 
   @@map("doctors")
 }
 
 model Specialization {
   id                  String                   @id @default(cuid())
-  specialization_name String
+  specialization_name String                   @unique
   clinics             SpecializationOnClinic[]
   doctors             SpecializationOnDoctor[]
 
@@ -96,26 +97,31 @@ model DoctorHospitalAffiliation {
 }
 
 model Clinic {
-  id                String                   @id @default(cuid())
-  name              String
-  email             String                   @unique
-  phone             String
-  address           String
-  is_phone_whatsapp Boolean                  @default(false)
-  created_at        DateTime                 @default(now())
-  updated_at        DateTime                 @default(now())
-  specializations   SpecializationOnClinic[]
+  id                     String                     @id @default(cuid())
+  name                   String
+  email                  String                     @unique
+  phone                  String
+  address                String
+  is_phone_whatsapp      Boolean                    @default(false)
+  created_at             DateTime                   @default(now())
+  updated_at             DateTime                   @default(now())
+  specializations        SpecializationOnClinic[]
+  doctors_availabilities ClinicDoctorAvailability[]
 
   @@map("clinics")
 }
 
 model ClinicDoctorAvailability {
   id           String   @id @default(cuid())
-  clinic_id    String
   day_of_week  String
-  start_time   DateTime
-  end_time     DateTime
+  start_time   String
+  end_time     String
   is_available Boolean  @default(false)
+
+  doctor    Doctor? @relation(fields: [doctor_id], references: [id])
+  doctor_id String?
+  clinic    Clinic? @relation(fields: [clinic_id], references: [id])
+  clinic_id String
 
   @@map("clinic_doctor_availatibilities")
 }
