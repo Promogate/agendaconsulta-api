@@ -9,7 +9,7 @@ export interface Administrator {
 }
 
 export enum AdministratorLevel {
-  admin = "ADMIN",
-  manager = "MANAGER",
-  employee = "EMPLOYEE",
+  ADMIN,
+  MANAGER,
+  EMPLOYEE,
 }
