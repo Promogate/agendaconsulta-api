@@ -1,6 +1,7 @@
 import * as asyncErrors from "express-async-errors";
 
 import express, { Express } from "express";
+import BodyParser from "body-parser";
 import httpErrorHandler from "../../lib/http-error-handler";
 import logger from "../../lib/logger";
 import { HttpServer } from "./http-server";
@@ -12,6 +13,7 @@ export default class ExpressAdapter implements HttpServer {
   constructor() {
     asyncErrors;
     this.app = express();
+    this.app.use(BodyParser.json());
     this.app.use(httpLogger);
     this.app.use(httpErrorHandler);
   }
