@@ -9,6 +9,8 @@ export class FindClinicsByAddressAndSpecializationRepository implements FindClin
     address: string,
     specialization: string
   ): Promise<Clinic[]> {
+    console.log("Endereço: ", address);
+    console.log("Especialidade: ", specialization);
     return this.prisma.clinic.findMany({
       where: {
         address: {

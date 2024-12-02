@@ -23,12 +23,16 @@ import DeleteClinicUseCase from "./application/use-cases/clinic/delete";
 import AuthController from "./application/controller/auth-controller";
 import AuthenticateUserUseCase from "./application/use-cases/authenticate-user";
 import PrismaAuthRepository from "./infra/repositories/prisma/auth-repository";
+import SearchController from "./application/controller/search-controller";
+import { FindClinicsByAddressAndSpecializationUseCase } from "./application/use-cases/search/find-clinics-by-adress-and-specialization";
+import { FindClinicsByAddressAndSpecializationRepository } from "./infra/repositories/prisma/find-clinic-repository";
 
 const app = new ExpressAdapter();
 const userRepository = new PrismaUserRepository(prisma);
 const doctorRepository = new PrismaDoctorRepository(prisma);
 const clinicRepository = new PrismaClinicRepository(prisma);
 const authRepository = new PrismaAuthRepository(prisma);
+const findClinicsByAddressAndSpecializationRepository = new FindClinicsByAddressAndSpecializationRepository(prisma);
 
 const userServices = new UserServices(userRepository);
 const createDoctorUseCase = new CreateDoctorUseCase(doctorRepository);
@@ -42,10 +46,12 @@ const createClinic = new CreateClinicUseCase(clinicRepository);
 const updateClinic = new UpdateClinicUseCase(clinicRepository);
 const deleteClinic = new DeleteClinicUseCase(clinicRepository);
 const authenticateUser = new AuthenticateUserUseCase(authRepository);
+const findClinicsByAddressAndSpecializationUseCase = new FindClinicsByAddressAndSpecializationUseCase(findClinicsByAddressAndSpecializationRepository);
 
 new UserController(app, userServices);
 new AuthController(app, authenticateUser);
 new DoctorController(app, createDoctorUseCase, findAllDoctors, findByIdDoctor, updateDoctor, deleteDoctor);
 new ClinicController(app, findClinics, findClinicById, createClinic, updateClinic, deleteClinic);
+new SearchController(app, findClinicsByAddressAndSpecializationUseCase);
 
 app.listen(8000);

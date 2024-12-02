@@ -17,7 +17,7 @@ export default class ClinicController {
     readonly findById: FindById,
     readonly create: CreateClinic,
     readonly update: UpdateClinic,
-    readonly deleteClinic: DeleteClinc
+    readonly deleteClinic: DeleteClinc,
   ) {
     this.router.on("get", this.namespace, "", [authMiddleware], async (request: Request, response: Response) => {
       try {

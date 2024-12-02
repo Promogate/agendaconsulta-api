@@ -101,7 +101,11 @@ model Clinic {
   name                   String
   email                  String                     @unique
   phone                  String
-  address                String
+  state                  String
+  street                 String
+  zipcode                String
+  municipality           String
+  number                 Int?
   is_phone_whatsapp      Boolean                    @default(false)
   created_at             DateTime                   @default(now())
   updated_at             DateTime                   @default(now())
@@ -112,11 +116,11 @@ model Clinic {
 }
 
 model ClinicDoctorAvailability {
-  id           String   @id @default(cuid())
+  id           String  @id @default(cuid())
   day_of_week  String
   start_time   String
   end_time     String
-  is_available Boolean  @default(false)
+  is_available Boolean @default(false)
 
   doctor    Doctor? @relation(fields: [doctor_id], references: [id])
   doctor_id String?
