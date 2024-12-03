@@ -13,7 +13,11 @@ export default class PrismaClinicRepository implements ClinicRepository {
       email: clinic.email,
       phone: clinic.phone,
       is_phone_whatsapp: clinic.is_phone_whatsapp,
-      address: clinic.address,
+      number: clinic.number,
+      municipality: clinic.municipality,
+      state: clinic.state,
+      street: clinic.street,
+      zipcode: clinic.zipcode,
       created_at: clinic.created_at,
       updated_at: clinic.updated_at
     }
