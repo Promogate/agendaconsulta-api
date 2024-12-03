@@ -17,7 +17,7 @@ export default class DoctorController {
     readonly updateDoctor: UpdateDoctor,
     readonly deleteDoctor: DeleteDoctor
   ) {
-    this.router.on("post", this.namespace, "/create", [], async (request: Request, response: Response) => {
+    this.router.on("post", this.namespace, "", [], async (request: Request, response: Response) => {
       try {
         const result = await createDoctor.execute(request.body);
         response.status(201).json({ doctor: result });
