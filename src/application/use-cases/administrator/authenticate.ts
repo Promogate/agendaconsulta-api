@@ -6,11 +6,11 @@ import { AuthenticateAdmin } from "../../../domain/features/administrator/authen
 import logger from "../../../lib/logger";
 
 export default class AuthenticateAdminUseCase implements AuthenticateAdmin {
-  constructor(readonly prisma: PrismaClient) { }
+  constructor(readonly database: PrismaClient) { }
 
   async execute(input: AuthenticateAdmin.Input): Promise<AuthenticateAdmin.Output> {
     try {
-      const administrator = await this.prisma.administrator.findUnique({ where: { email: input.email } });
+      const administrator = await this.database.administrator.findUnique({ where: { email: input.email } });
       if (!administrator) throw new Error("Email ou senha estão incorretos. Tente novamente");
       const isPasswordValid = compare(input.password, administrator.password_hash);
       if (!isPasswordValid) throw new Error("Email ou senha estão incorretos. Tente novamente");
